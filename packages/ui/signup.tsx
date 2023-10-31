@@ -1,13 +1,15 @@
-/* eslint-disable eslint-comments/require-description */
 import { Button, Typography, Card, TextField } from "@mui/material";
-import { JSX, useState } from "react";
+import { useState } from "react";
 
-export function Signup(): JSX.Element {
+export function Signup({
+  onClick,
+  info
+}: {
+  info: string;
+  onClick: (username?: string, password?: string) => void;
+}): JSX.Element {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  // console.log(email, password);
-
   return (
     <div>
       <div
@@ -18,41 +20,38 @@ export function Signup(): JSX.Element {
           justifyContent: "center"
         }}
       >
-        <Typography variant={"h6"}>
-          Welcome to Coursera. Sign up below
-        </Typography>
+        <Typography variant="h6">Welcome to Coursera. {info} below</Typography>
       </div>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <Card variant={"outlined"} style={{ width: 400, padding: 20 }}>
+        <Card style={{ width: 400, padding: 20 }} variant="outlined">
           <TextField
+            fullWidth
+            label="Email"
             onChange={(event) => {
               setEmail(event.target.value);
             }}
-            fullWidth={true}
-            label="Email"
             variant="outlined"
           />
           <br />
           <br />
           <TextField
+            fullWidth
+            label="Password"
             onChange={(e) => {
               setPassword(e.target.value);
             }}
-            fullWidth={true}
-            label="Password"
+            type="password"
             variant="outlined"
-            type={"password"}
           />
           <br />
           <br />
 
           <Button
-            size={"large"}
-            variant="contained"
             onClick={() => {
-              // eslint-disable-next-line no-alert
-              alert("Hello World!");
+              onClick(email, password);
             }}
+            size="large"
+            variant="contained"
           >
             Signup
           </Button>
